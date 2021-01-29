@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.set('view engine', 'pug');// kompilujemy dynamiczne szablony z silnikiem pug
+app.set('views', 'views'); //ustawiamy domyślny katalog views na views (w tym wypadku nie musimy tego robić - views jest katalogirm domyślnym)
+
 const admminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
