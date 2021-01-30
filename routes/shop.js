@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     //res.sendFile(path.join(rootDir, 'views', 'shop.html'));
 
     const products = admminData.products;
-    res.render('shop', {prods: products, docTitle: 'Shop'}); //struktura plików ustawiona na katalog view, wybieramy plik, rozszerzenie pug także jest ust domyślnie, przekazujemy products w propsie
+    res.render('shop', {prods: products, pageTitle: 'Shop', path: '/'}, ); //struktura plików ustawiona na katalog view, wybieramy plik, rozszerzenie pug także jest ust domyślnie, przekazujemy products w propsie
 });
 
 module.exports = router;
