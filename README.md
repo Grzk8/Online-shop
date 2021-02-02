@@ -1,3 +1,3 @@
 ## Online shop project
 
-## Create with: node.js, express
+## It`s my first project creating with: node.js, express
