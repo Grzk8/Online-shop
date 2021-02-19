@@ -17,7 +17,16 @@ module.exports = class Cart {
             };
         // analyze the cart => find existing product
         const existingProduct = cart.products.find(prod => prod.id === id);
-        
+        let updatedProduct;
+        // add new product, increase quantity
+        if (updatedProduct) {
+            updatedProduct = {...existingProduct};
+            updatedProduct.qty = updatedProduct.qty + 1;
+        } else {
+            updatedProduct = {id: id, qty: 1};
+        };
+        cart.totalPrice = cart.totalPrice + productPrice;
+        cart.products = [...cart.products];
         });
     };
     
