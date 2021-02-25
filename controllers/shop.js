@@ -43,11 +43,11 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-  const prodId = req.body.productId;
-  Product.findById(prodId, product => {
-    Cart.addProduct(prodId, product.price);
-  });
-  res.redirect('/cart');
+    const prodId = req.body.porductId;
+    Product.findById(prodId, product => {
+        Cart.addProduct(prodId, product.price);
+    });
+    res.redirect('/cart');
 };
 
 exports.getOrders = (req, res, next) => {
