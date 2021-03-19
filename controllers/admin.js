@@ -45,11 +45,12 @@ exports.getEditProduct = (req, res, next) => {
         editing: editMode,
         product: product
     });
-  });
+  })
+  .catch(err => console.log(err));
   };
 
 exports.postEditProduct = (req, res, next) => {
-    const prodId = req.body.prodId;
+    const prodId = req.body.productId;
     const updatedTitle = req.body.title;
     const updatedPrice = req.body.price;
     const updatedImageUrl = req.body.imageUrl;
@@ -64,9 +65,9 @@ exports.postEditProduct = (req, res, next) => {
     })
     .then(result => {
       console.log('updated product');
+      res.redirect('/admin/products');
     })
     .catch(err => console.log(err))
-    res.redirect('/admin/products');
 };
 
 exports.getProducts = (req, res, next) => {
