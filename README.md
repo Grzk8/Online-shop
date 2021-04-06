@@ -1,3 +1,3 @@
 ## Online shop project
 
-## It`s my first project creating with: node.js, express
+## It is  project creating during 'NodeJS - The Complete Guide (MVC, REST APIs, GraphQL, Deno)' course
