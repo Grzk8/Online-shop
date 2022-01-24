@@ -61,7 +61,7 @@ exports.postEditProduct = (req, res, next) => {
       product.imageUrl = updatedImageUrl;
       return product.save();
     })
-    .then(result => {z
+    .then(result => {
       console.log('updated product');
       res.redirect('/admin/products');
     })
