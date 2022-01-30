@@ -53,14 +53,17 @@ exports.postEditProduct = (req, res, next) => {
     const updatedPrice = req.body.price;
     const updatedImageUrl = req.body.imageUrl;
     const updatedDescription = req.body.description;
-    Product.findByPk(prodId)
-    .then(product => {
-      product.title = updatedTitle;
-      product.price = updatedPrice;
-      product.description = updatedDescription;
-      product.imageUrl = updatedImageUrl;
-      return product.save();
-    })
+
+    const product = new Product(
+      updatedTitle,
+      updatedPrice,
+      updatedDescription,
+      updatedImageUrl,
+      prodId
+    );
+
+    product
+    .save()
     .then(result => {
       console.log('updated product');
       res.redirect('/admin/products');
