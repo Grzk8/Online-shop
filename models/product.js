@@ -43,7 +43,7 @@ class Product {
         })
     }
 
-    static findByPk(prodId) {
+    static findById(prodId) {
         const db = getDb();
         return db.collection('products')
         .find({_id: new mongodb.ObjectId(prodId)})
