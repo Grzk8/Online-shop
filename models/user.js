@@ -31,7 +31,7 @@ class User {
         }
 
         const updatedCart = { items: updatedCartItems };
-        const db = getDb;
+        const db = getDb();
         return db
         .collection('users')
         .updateOne(
