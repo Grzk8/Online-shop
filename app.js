@@ -4,11 +4,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const mongoDBStore = require('connect-mongodb-session')(session);
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
+const MONGODB_URI = 'mongodb+srv://user1:user1haslo@cluster0.wcshf.mongodb.net/shop?retryWrites=true';
+
 const app = express();
+const store = new mongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'sesions'
+});
 
 app.set('view engine', 'ejs'); 
 app.set('views', 'views'); 
@@ -17,9 +24,16 @@ const admminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(seassion({secret: 'my secret', resave: false, saveUninitialized: false}))
+app.use(session({
+    secret: 'my secret', 
+    resave: false, 
+    saveUninitialized: false,
+    store: store
+})
+);
 
 app.use((req, res, next) => {
     User.findById('620f75b27b6bbf66340c0b1b')
@@ -37,7 +51,7 @@ app.use(authRoutes);
 app.use(errorController.get404);
 
 mongoose
-.connect('mongodb+srv://user1:user1haslo@cluster0.wcshf.mongodb.net/shop?retryWrites=true')
+.connect(MONGODB_URI)
 .then(result => {
     User.findOne().then(user => {
         if (!user) {
