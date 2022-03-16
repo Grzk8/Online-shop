@@ -14,7 +14,7 @@ const MONGODB_URI = 'mongodb+srv://user1:user1haslo@cluster0.wcshf.mongodb.net/s
 const app = express();
 const store = new mongoDBStore({
     uri: MONGODB_URI,
-    collection: 'sesions'
+    collection: 'sessions'
 });
 
 app.set('view engine', 'ejs'); 
@@ -34,15 +34,6 @@ app.use(session({
     store: store
 })
 );
-
-app.use((req, res, next) => {
-    User.findById('620f75b27b6bbf66340c0b1b')
-    .then(user => {
-    req.user = user;
-    next();
-    })
-    .catch(err => console.log(err));
-});
 
 app.use('/admin', admminRoutes);
 app.use(shopRoutes);
