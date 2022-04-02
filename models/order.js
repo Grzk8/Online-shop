@@ -8,7 +8,7 @@ const orderShema = new Shema ({
         quantity: {type:Number, required: true}
     }],
     user: {
-        name: {type: String, required: true},
+        email: {type: String, required: true},
     
     userId: {type: Shema.Types.ObjectId, required: true, ref: 'User'}
 }});
