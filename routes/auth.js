@@ -2,6 +2,7 @@ const express = require('express');
 const { check, body} = require('express-validator');
 
 const authController = require('../controllers/auth');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -9,9 +10,15 @@ router.get('/login', authController.getLogin);
 
 router.get('/signup', authController.getSignup);
 
-router.post('/login',[
-    body('email').isEmail().withMessage('Incorrect email adress').normalizeEmail(),
-    body('password', 'Invalid password').isLength({min: 5}).isAlphanumeric().trim()
+router.post('/login',
+[
+    body('email')
+      .isEmail()
+      .withMessage('Incorrect email adress')
+      .normalizeEmail(),
+    body('password', 'Invalid password')
+      .isLength({min: 5})
+      .isAlphanumeric().trim()
 ] , authController.postLogin);
 
 router.post(
