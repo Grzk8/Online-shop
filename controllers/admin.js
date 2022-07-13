@@ -15,10 +15,12 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
     const title = req.body.title;
-    const imageUrl = req.body.imageUrl;
+    const image = req.file;
     const price = req.body.price;
     const description = req.body.description;
     const errors = validationResult(req);
+
+    const imageUrl = image.path;
 
     if (!errors.isEmpty()) {
       return res.status(422).render('admin/edit-product', {
@@ -84,7 +86,7 @@ exports.postEditProduct = (req, res, next) => {
     const prodId = req.body.productId;
     const updatedTitle = req.body.title;
     const updatedPrice = req.body.price;
-    const updatedImageUrl = req.body.imageUrl;
+    const image = req.file;
     const updatedDescription = req.body.description;
 
     const errors = validationResult(req);
@@ -114,7 +116,9 @@ exports.postEditProduct = (req, res, next) => {
         }
       product.title = updatedTitle;
       product.price = updatedPrice;
-      product.imageUrl = updatedImageUrl;
+      if (image) {
+        product.imageUrl = image.path;
+      }
       product.description = updatedDescription;
       return product
       .save()
