@@ -100,7 +100,6 @@ exports.postEditProduct = (req, res, next) => {
         hasError: true,
         product: {
           title: updatedTitle,
-          imageUrl: updatedImageUrl,
           price: updatedPrice,
           description: updatedDescription,
           _id: prodId
@@ -146,16 +145,21 @@ exports.getProducts = (req, res, next) => {
   });
 };
 
-exports.postDeleteProduct = (req, res, next) => {
-  const prodId = req.body.productId;
+exports.deleteProduct = (req, res, next) => {
+  const prodId = req.params.productId;
   Product.findById(prodId)
-    .then(product => {fileHelper
-      .deleteFile(product.imageUrl);
-      Product.deleteOne({_id: prodId, userId: req.user._id});
+    .then(product => {
+      if (!product) {
+        return next(new Error('Product not found.'));
+      }
+      fileHelper.deleteFile(product.imageUrl);
+      return Product.deleteOne({ _id: prodId, userId: req.user._id });
     })
     .then(() => {
-      console.log('Destroyed');
-      res.redirect('/admin/products');
+      console.log('DESTROYED PRODUCT');
+      res.status(200).json({ message: 'Success!' });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({ message: 'Deleting product failed.' });
+    });
 };
